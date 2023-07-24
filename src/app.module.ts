@@ -5,9 +5,17 @@ import { LeadsModule } from './leads/leads.module';
 import { AccountsModule } from './accounts/accounts.module';
 import { OpportunitiesModule } from './opportunities/opportunities.module';
 import { ContactsModule } from './contacts/contacts.module';
+import { TypeOrmConfig } from './config/typeorm-config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [LeadsModule, AccountsModule, OpportunitiesModule, ContactsModule],
+  imports: [
+    TypeOrmModule.forRootAsync({ useFactory: () => TypeOrmConfig }),
+    LeadsModule,
+    AccountsModule,
+    OpportunitiesModule,
+    ContactsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
