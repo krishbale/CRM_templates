@@ -12,23 +12,26 @@ export class LeadsService {
   ) {}
 
   async create(createLeadDto: CreateLeadDto) {
-    const newlead = 'this data is goog data';
-    return newlead;
+    return this.leadRepository.save(createLeadDto);
   }
 
   findAll() {
-    return `This action returns all leads`;
+    return this.leadRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} lead`;
+  findOne(id: string) {
+    return this.leadRepository.find({
+      where: {
+        id: id,
+      },
+    });
   }
 
-  update(id: number, updateLeadDto: UpdateLeadDto) {
-    return `This action updates a #${id} lead`;
+  update(id: string, updateLeadDto: UpdateLeadDto) {
+    return this.leadRepository.update(id, updateLeadDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} lead`;
+  remove(id: string) {
+    return this.leadRepository.delete(id);
   }
 }

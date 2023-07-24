@@ -3,9 +3,8 @@ import { Salutation } from '../enum/leadsaluation.enum';
 import { LeadStatus } from '../enum/leadstatus.enum';
 import { LeadSource } from '../enum/leadsource.enum';
 import { Rating } from '../enum/leadrating.enum';
-
+import { Industry } from 'src/accounts/enum/industry.type.enum';
 @Entity('lead')
-//entity deep partials
 export class Lead {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -23,7 +22,7 @@ export class Lead {
   title: string;
 
   @Column()
-  account_id: string;
+  website: string;
 
   @Column()
   mobile: string;
@@ -37,15 +36,6 @@ export class Lead {
   @Column()
   owner_id: string;
 
-  @Column()
-  contact_status: boolean;
-
-  @Column()
-  deal_id: string;
-
-  @Column()
-  opportunity_id: string;
-
   @Column({ type: 'enum', enum: LeadSource, default: LeadSource.ADVERTISEMENT })
   lead_source: LeadSource;
 
@@ -54,4 +44,33 @@ export class Lead {
 
   @Column('text')
   description: string;
+
+  // ------------------Company Information ---------------
+  @Column()
+  company: string;
+
+  @Column()
+  no_of_employee: number;
+
+  @Column({ type: 'enum', enum: Industry, default: Industry.Agriculture })
+  industry: Industry;
+
+  // ------------------Address Information ---------------
+  @Column()
+  address: string;
+
+  @Column()
+  street: string;
+
+  @Column()
+  city: string;
+
+  @Column()
+  zipcode: string;
+
+  @Column()
+  province: string;
+
+  @Column()
+  counrty: string;
 }
