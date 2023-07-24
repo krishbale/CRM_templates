@@ -27,7 +27,7 @@ export class OpportunitiesController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.opportunitiesService.findOne(+id);
+    return this.opportunitiesService.findOne(id);
   }
 
   @Patch(':id')
@@ -35,11 +35,11 @@ export class OpportunitiesController {
     @Param('id') id: string,
     @Body() updateOpportunityDto: UpdateOpportunityDto,
   ) {
-    return this.opportunitiesService.update(+id, updateOpportunityDto);
+    return this.opportunitiesService.update(id, updateOpportunityDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.opportunitiesService.remove(+id);
+    return this.opportunitiesService.remove(id);
   }
 }
