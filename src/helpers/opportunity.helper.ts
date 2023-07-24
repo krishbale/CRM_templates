@@ -4,6 +4,7 @@ import {
 } from 'src/opportunities/entities/opportunity.entity';
 
 export class OpportunityHelper {
+  //calculating probability according to the opportunity stage
   static calculateProbability(stage: opportunity_stage): number {
     let probability: number;
     if (!stage) {
