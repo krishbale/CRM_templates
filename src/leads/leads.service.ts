@@ -1,11 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { CreateLeadDto } from './dto/create-lead.dto';
 import { UpdateLeadDto } from './dto/update-lead.dto';
-
+import { InjectRepository } from '@nestjs/typeorm';
+import { Lead } from './entities/lead.entity';
+import { Repository } from 'typeorm';
 @Injectable()
 export class LeadsService {
-  create(createLeadDto: CreateLeadDto) {
-    return 'This action adds a new lead';
+  constructor(
+    @InjectRepository(Lead)
+    private leadRepository: Repository<Lead>,
+  ) {}
+
+  async create(createLeadDto: CreateLeadDto) {
+    const newlead = 'this data is goog data';
+    return newlead;
   }
 
   findAll() {

@@ -1,7 +1,10 @@
 # compiled output
 /dist
-/node_modules
+/.dockerignore
 
+/node_modules
+/.env
+/yarn.lock
 # Logs
 logs
 *.log
