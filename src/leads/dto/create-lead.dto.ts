@@ -55,7 +55,7 @@ export class CreateLeadDto {
   @IsNumber()
   no_of_employee: number;
 
-  @IsString()
+  @IsEnum(Industry)
   industry: Industry;
 
   // -----------------Address Information ---------------
