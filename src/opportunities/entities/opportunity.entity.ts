@@ -23,13 +23,19 @@ export class Opportunity {
   @PrimaryGeneratedColumn('uuid', { name: 'id' })
   id: string;
 
-  @Column({ name: 'opportunity_name', type: 'varchar', length: 100 })
+  @Column({
+    name: 'opportunity_name',
+    type: 'varchar',
+    length: 50,
+    nullable: false,
+  })
   opportunity_name: string;
 
   @Column({
     name: 'account_name',
     type: 'varchar',
-    length: 100,
+    length: 50,
+    nullable: false,
   })
   account_name: string;
 
@@ -44,9 +50,14 @@ export class Opportunity {
   })
   stage: opportunity_stage;
 
-  @Column({ name: 'close_date', type: 'date' })
+  @Column({ name: 'close_date', type: 'date', nullable: false })
   close_date: Date;
 
-  @Column({ name: 'opportunity_owner_alias', type: 'varchar', length: 100 })
+  @Column({
+    name: 'opportunity_owner_alias',
+    type: 'varchar',
+    length: 50,
+    nullable: false,
+  })
   opportunity_owner_alias: string;
 }
