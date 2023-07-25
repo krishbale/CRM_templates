@@ -12,6 +12,12 @@ export const TypeOrmConfig: TypeOrmModuleOptions = {
   logging: NODE_ENV === 'development',
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
   migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
+  ssl: true,
+  extra: {
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  },
   cli: {
     entitiesDir: 'src',
     migrationsDir: 'src/migrations',

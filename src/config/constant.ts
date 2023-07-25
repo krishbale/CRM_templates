@@ -18,4 +18,3 @@ export const DATABASE: {
   DATABASE_PASSWORD: process.env.DATABASE_PASSWORD!,
   DATABASE_NAME: process.env.DATABASE_NAME!,
 };
-
