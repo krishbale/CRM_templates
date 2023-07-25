@@ -1,26 +1,57 @@
 import { Injectable } from '@nestjs/common';
 import { CreateContactDto } from './dto/create-contact.dto';
 import { UpdateContactDto } from './dto/update-contact.dto';
+import { Repository } from 'typeorm';
+import { Contact } from './entities/contact.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { BadRequestException } from '@nestjs/common';
 
 @Injectable()
 export class ContactsService {
-  create(createContactDto: CreateContactDto) {
-    return 'This action adds a new contact';
+  constructor(
+    @InjectRepository(Contact) private contactRepository: Repository<Contact>,
+  ) {}
+  async create(createContactDto: CreateContactDto) {
+    const newContact = this.contactRepository.create(createContactDto);
+    await this.contactRepository.save(newContact);
+    return {
+      data: newContact,
+      message: 'CONTACT_CREATED_SUCCESSFULLY',
+    };
   }
 
   findAll() {
-    return `This action returns all contacts`;
+    return {
+      data: this.contactRepository.find(),
+      message: 'CONTACT_FETCHED_SUCCESSFULLY',
+    };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} contact`;
+  findOne(id: string) {
+    return {
+      data: this.contactRepository.findOneOrFail({ where: { id } }),
+      message: 'CONTACT_FETCHED_SUCCESSFULLY',
+    };
   }
 
-  update(id: number, updateContactDto: UpdateContactDto) {
-    return `This action updates a #${id} contact`;
+  async update(id: string, updateContactDto: UpdateContactDto) {
+    const existingContact = this.contactRepository.findOne({ where: { id } });
+    if (!existingContact) throw new BadRequestException('CONTACT_NOT_FOUND');
+
+    await this.contactRepository.update(id, {
+      ...updateContactDto,
+    });
+    const updatedContact = await this.contactRepository.findOne({
+      where: { id },
+    });
+    return { data: updatedContact, message: 'CONTACT_UPDATED_SUCCESSFULLY' };
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} contact`;
+  async remove(id: string) {
+    const existingContact = this.contactRepository.findOne({ where: { id } });
+    if (!existingContact) throw new BadRequestException('CONTACT_NOT_FOUND');
+
+    await this.contactRepository.delete(id);
+    return { message: 'CONTACT_DELETED_SUCCESSFULLY' };
   }
 }
