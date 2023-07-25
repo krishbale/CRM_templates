@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateLeadDto } from './dto/create-lead.dto';
 import { UpdateLeadDto } from './dto/update-lead.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -28,10 +28,47 @@ export class LeadsService {
   }
 
   update(id: string, updateLeadDto: UpdateLeadDto) {
+    const lead = this.leadRepository.find({
+      where: {
+        id: id,
+      },
+    });
+    if (!lead) {
+      throw new BadRequestException({
+        success: false,
+        message: 'NO Lead found',
+      });
+    }
+
     return this.leadRepository.update(id, updateLeadDto);
   }
 
   remove(id: string) {
+    const lead = this.leadRepository.find({
+      where: {
+        id: id,
+      },
+    });
+    if (!lead) {
+      throw new BadRequestException({
+        success: false,
+        message: 'NO Lead found',
+      });
+    }
     return this.leadRepository.delete(id);
+  }
+
+  updatestage(id: string) {
+    const lead = this.leadRepository.find({
+      where: {
+        id: id,
+      },
+    });
+    if (!lead) {
+      throw new BadRequestException({
+        success: false,
+        message: 'NO Lead found',
+      });
+    }
   }
 }
