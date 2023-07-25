@@ -13,6 +13,17 @@ export class LeadsService {
   ) {}
 
   async create(createLeadDto: CreateLeadDto) {
+    const IsEmail = this.leadRepository.find({
+      where: {
+        email: createLeadDto.email,
+      },
+    });
+    if (IsEmail) {
+      throw new BadRequestException({
+        success: false,
+        message: 'Email already exists',
+      });
+    }
     return this.leadRepository.save(createLeadDto);
   }
 

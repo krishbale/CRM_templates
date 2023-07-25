@@ -1,5 +1,6 @@
+import { Account } from 'src/accounts/entities/account.entity';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-
+import { ManyToOne, JoinColumn } from 'typeorm';
 export enum opportunity_stage {
   qualification = 'QUALIFICATION',
   needs_analysis = 'NEEDS_ANALYSIS',
@@ -30,6 +31,12 @@ export class Opportunity {
     nullable: false,
   })
   opportunity_name: string;
+
+  @ManyToOne(() => Account, (account) => account.opportunity, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'sender_id' })
+  Account: Account;
 
   @Column({
     name: 'account_name',

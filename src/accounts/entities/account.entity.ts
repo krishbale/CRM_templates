@@ -7,7 +7,9 @@ import {
 } from 'typeorm';
 import { Industry } from '../enum/industry.type.enum';
 import { AccountType } from '../enum/account.type.enum';
-
+import { OneToMany } from 'typeorm';
+import { Opportunity } from 'src/opportunities/entities/opportunity.entity';
+import { JoinColumn } from 'typeorm';
 @Entity('account')
 export class Account {
   // ----------------Account Information---------------
@@ -88,4 +90,12 @@ export class Account {
 
   @UpdateDateColumn()
   last_modified_by: Date;
+
+  // -----------------------System-Information----------------------------
+
+  @OneToMany(() => Opportunity, (opportunities) => opportunities.account_name, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'opportunities_id' })
+  opportunity: Opportunity[];
 }
