@@ -1,26 +1,76 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateLeadDto } from './dto/create-lead.dto';
 import { UpdateLeadDto } from './dto/update-lead.dto';
-
+import { InjectRepository } from '@nestjs/typeorm';
+import { Lead } from './entities/lead.entity';
+import { Repository } from 'typeorm';
+import { LeadStatus } from './enum/leadstatus.enum';
 @Injectable()
 export class LeadsService {
-  create(createLeadDto: CreateLeadDto) {
-    return 'This action adds a new lead';
+  constructor(
+    @InjectRepository(Lead)
+    private leadRepository: Repository<Lead>,
+  ) {}
+
+  async create(createLeadDto: CreateLeadDto) {
+    return this.leadRepository.save(createLeadDto);
   }
 
   findAll() {
-    return `This action returns all leads`;
+    return this.leadRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} lead`;
+  findOne(id: string) {
+    return this.leadRepository.find({
+      where: {
+        id: id,
+      },
+    });
   }
 
-  update(id: number, updateLeadDto: UpdateLeadDto) {
-    return `This action updates a #${id} lead`;
+  update(id: string, updateLeadDto: UpdateLeadDto) {
+    const lead = this.leadRepository.find({
+      where: {
+        id: id,
+      },
+    });
+    if (!lead) {
+      throw new BadRequestException({
+        success: false,
+        message: 'NO Lead found',
+      });
+    }
+
+    return this.leadRepository.update(id, updateLeadDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} lead`;
+  remove(id: string) {
+    const lead = this.leadRepository.find({
+      where: {
+        id: id,
+      },
+    });
+    if (!lead) {
+      throw new BadRequestException({
+        success: false,
+        message: 'NO Lead found',
+      });
+    }
+    return this.leadRepository.delete(id);
   }
+
+  // updatestatus(id: string, leadstatus: UpdateLeadDto['lead_status']) {
+  //   const lead = this.leadRepository.find({
+  //     where: {
+  //       id: id,
+  //     },
+  //   });
+  //   if (!lead) {
+  //     throw new BadRequestException({
+  //       success: false,
+  //       message: 'NO Lead found',
+  //     });
+  //   }
+  //   return this.leadRepository.update(id, { lead_status: leadstatus });
+  // }
 }

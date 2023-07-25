@@ -1,0 +1,5 @@
+export enum LeadSource {
+  ADVERTISEMENT = 'ADVERTISEMENT',
+  REFERRAL = 'REFERRAL',
+  ON_SITE = 'ONSITE',
+}
