@@ -33,11 +33,17 @@ export class OpportunitiesService {
   }
 
   findAll() {
-    return this.opportunityRepository.find();
+    return {
+      data: this.opportunityRepository.find(),
+      message: 'OPPORTUNITY_FETCHED_SUCCESSFULLY',
+    };
   }
 
   findOne(id: string) {
-    return this.opportunityRepository.findOneOrFail({ where: { id } });
+    return {
+      data: this.opportunityRepository.findOneOrFail({ where: { id } }),
+      message: 'OPPORTUNITY_FETCHED_SUCCESSFULLY',
+    };
   }
 
   async update(id: string, updateOpportunityDto: UpdateOpportunityDto) {

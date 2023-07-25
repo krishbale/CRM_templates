@@ -21,11 +21,17 @@ export class ContactsService {
   }
 
   findAll() {
-    return this.contactRepository.find();
+    return {
+      data: this.contactRepository.find(),
+      message: 'CONTACT_FETCHED_SUCCESSFULLY',
+    };
   }
 
   findOne(id: string) {
-    return this.contactRepository.findOneOrFail({ where: { id } });
+    return {
+      data: this.contactRepository.findOneOrFail({ where: { id } }),
+      message: 'CONTACT_FETCHED_SUCCESSFULLY',
+    };
   }
 
   async update(id: string, updateContactDto: UpdateContactDto) {
