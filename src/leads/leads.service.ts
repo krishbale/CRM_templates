@@ -4,6 +4,7 @@ import { UpdateLeadDto } from './dto/update-lead.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Lead } from './entities/lead.entity';
 import { Repository } from 'typeorm';
+import { LeadStatus } from './enum/leadstatus.enum';
 @Injectable()
 export class LeadsService {
   constructor(
@@ -58,17 +59,18 @@ export class LeadsService {
     return this.leadRepository.delete(id);
   }
 
-  updatestage(id: string) {
-    const lead = this.leadRepository.find({
-      where: {
-        id: id,
-      },
-    });
-    if (!lead) {
-      throw new BadRequestException({
-        success: false,
-        message: 'NO Lead found',
-      });
-    }
-  }
+  // updatestatus(id: string, leadstatus: UpdateLeadDto['lead_status']) {
+  //   const lead = this.leadRepository.find({
+  //     where: {
+  //       id: id,
+  //     },
+  //   });
+  //   if (!lead) {
+  //     throw new BadRequestException({
+  //       success: false,
+  //       message: 'NO Lead found',
+  //     });
+  //   }
+  //   return this.leadRepository.update(id, { lead_status: leadstatus });
+  // }
 }

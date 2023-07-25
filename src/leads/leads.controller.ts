@@ -10,6 +10,7 @@ import {
 import { LeadsService } from './leads.service';
 import { CreateLeadDto } from './dto/create-lead.dto';
 import { UpdateLeadDto } from './dto/update-lead.dto';
+import { LeadStatus } from './enum/leadstatus.enum';
 
 @Controller('leads')
 export class LeadsController {
@@ -39,4 +40,9 @@ export class LeadsController {
   remove(@Param('id') id: string) {
     return this.leadsService.remove(id);
   }
+
+  // @Patch('/status/:id')
+  // updateLeadStatus(@Param('id') id: string) {
+  //   return this.leadsService.updatestatus(id, LeadStatus);
+  // }
 }
