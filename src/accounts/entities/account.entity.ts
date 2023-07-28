@@ -28,7 +28,7 @@ export class Account {
   @Column()
   phone1: string;
 
-  @Column({ type: 'enum', enum: Industry, default: Industry.Agriculture })
+  @Column({ type: 'enum', enum: Industry, default: Industry.AGRICULTURE })
   industry: Industry;
 
   // ---------------Additional Information --------------------

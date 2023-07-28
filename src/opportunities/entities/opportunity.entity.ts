@@ -53,7 +53,7 @@ export class Opportunity {
     name: 'stage',
     type: 'enum',
     enum: opportunity_stage,
-    default: opportunity_stage.qualification,
+    nullable: false,
   })
   stage: opportunity_stage;
 
